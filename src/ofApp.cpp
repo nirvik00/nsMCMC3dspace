@@ -9,12 +9,10 @@ void ofApp::clearSys() {
 	a2.clearTrail();
 	a3.clearTrail();
 	a4.clearTrail();
-	b0.clearTrail();
-	b1.clearTrail();
 
 }
 
-void ofApp::initSysSculpture() {
+void ofApp::initAgents() {
 	MSG = "";
 	clearSys();
 	float totalArea = (numXGrids*numYGrids*numZGrids*gridLength*gridDepth);
@@ -106,31 +104,6 @@ void ofApp::initSysSculpture() {
 
 }
 
-void ofApp::initSysSequence() {
-	resetSys();
-	MSG = "";
-	clearSys();
-	float totalArea = (numXGrids*numYGrids*numZGrids*gridLength*gridDepth);
-	MSG += "\ntotal Area = " + to_string(totalArea);
-	MSG += "\ntotal Number of Cells = " + to_string(CELLS.size());
-	MSG += "\ntotal Occupied  Cells = " + to_string(sysOccupiedCELLS.size());
-
-	float b0Area = totalArea*(gui->agentArea0) / 100;
-	b0.setReqArea(b0Area);
-	b0.setColor(gui->color0);
-	b0.CELLS = CELLS;
-	b0.initMove();
-	float b0Deficit = b0Area - b0.gotArea(); totalDeficit = b0Deficit;
-	sysOccupiedCELLS = b0.getSysOccCells();
-
-	MSG += "\n\nRequired Area  #0= " + to_string(b0Area);
-	MSG += "\nAchieved Area  #0= " + to_string(b0.gotArea());
-	MSG += "\nDeficit Area   #0= " + to_string(b0Deficit);
-	MSG += "\nCells occupied #0= " + to_string(b0.cellTrail.size());
-
-	
-}
-
 void ofApp::resetSys() {
 	CELLS.clear();	
 	int m = 0;
@@ -184,46 +157,55 @@ void ofApp::update(){
 
 void ofApp::draw(){
 	ofBackground(0); 
-	cam.begin();
+	/* 3D INTERFACE */ cam.begin();
+
+	/* DISPLAY CELLS */
 	if (gui->showGrid == true) {
 		for (int i = 0; i < CELLS.size(); i++) {
 			CELLS[i].draw();
 		}
 	}
-	/* SCULPTURE */
-	for (int i = 0; i < a0.cellTrail.size(); i++) {
-		ofColor co = gui->color0; ofFill();
-		a0.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+	
+	/* DISPLAY AGENTS */
+	if(gui->isolateArea0 == true){
+		for (int i = 0; i < a0.cellTrail.size(); i++) {
+			ofColor co = gui->color0; ofFill();
+			a0.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+		}
 	}
-	for (int i = 0; i < a1.cellTrail.size(); i++) {
-		ofColor co = gui->color1; ofFill();
-		a1.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+	if (gui->isolateArea1 == true) {
+		for (int i = 0; i < a1.cellTrail.size(); i++) {
+			ofColor co = gui->color1; ofFill();
+			a1.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+		}
 	}
-	for (int i = 0; i < a2.cellTrail.size(); i++) {
-		ofColor co = gui->color2; ofFill();
-		a2.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+	if (gui->isolateArea2 == true) {
+		for (int i = 0; i < a2.cellTrail.size(); i++) {
+			ofColor co = gui->color2; ofFill();
+			a2.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+		}
 	}
-	for (int i = 0; i < a3.cellTrail.size(); i++) {
-		ofColor co = gui->color3; ofFill();
-		a3.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+	if (gui->isolateArea3 == true) {
+		for (int i = 0; i < a3.cellTrail.size(); i++) {
+			ofColor co = gui->color3; ofFill();
+			a3.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+		}
 	}
-	for (int i = 0; i < a4.cellTrail.size(); i++) {
-		ofColor co = gui->color4; ofFill();
-		a4.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
-	}
-
-	/* SEQUENCE */
-	for (int i = 0; i < b0.cellTrail.size(); i++) {
-		ofColor co = gui->color0; ofFill();
-		b0.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+	if (gui->isolateArea4 == true) {
+		for (int i = 0; i < a4.cellTrail.size(); i++) {
+			ofColor co = gui->color4; ofFill();
+			a4.cellTrail[i].draw(co, gui->isolateZXPlane, gui->ZXToIsolate, gui->wireframe);
+		}
 	}
 	
-	/* GUI */
+	/* END THE 3D INTERFACE */
 	int axisDim = gridLength*numXGrids*1.5;
 	ofDrawAxis(axisDim);
 	cam.end();
 	ofDisableDepthTest();
 
+
+	/* DISPLAY TEXT */
 	ofSetColor(255, 255, 255); ofFill();
 	ofDrawBitmapString(" Mouse Controls for 3d interface    ", 10, 20);
 	ofDrawBitmapString("------------------------------------", 10, 40);
@@ -248,8 +230,7 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key){
 	if (key == 'e' || key == 'E') { resetSys(); }
-	if (key == 'a' || key == 'A') { initSysSculpture(); }
-	if (key == 'b' || key == 'B') { initSysSequence(); }
+	if (key == 'a' || key == 'A') { initAgents(); }
 }
 
 void ofApp::keyReleased(int key){

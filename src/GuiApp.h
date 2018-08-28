@@ -49,15 +49,22 @@ public:
 	ofParameter<float> agentArea3;
 	ofParameter<float> agentArea4;
 
-	ofParameter <string> blank10;
-	ofParameter <string> color;
-	ofParameter <string> blank11;
 	ofParameter<ofColor> color0;
 	ofParameter<ofColor> color1;
 	ofParameter<ofColor> color2;
 	ofParameter<ofColor> color3;
 	ofParameter<ofColor> color4;
 	
+	ofParameter <string> blank10;
+	ofParameter <string> isoAr;
+	ofParameter <string> blank11;
+	ofParameter<bool>isolateArea0;
+	ofParameter<bool>isolateArea1;
+	ofParameter<bool>isolateArea2;
+	ofParameter<bool>isolateArea3;
+	ofParameter<bool>isolateArea4;
+
+
 	ofxPanel gui;
 };
 

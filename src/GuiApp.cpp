@@ -37,14 +37,21 @@ void GuiApp::setup()
 	parameters.add(agentArea3.set("Area 3", 15, 1, 50));
 	parameters.add(agentArea4.set("Area 4", 15, 1, 50));
 
-	parameters.add(blank10.set(""));
-	parameters.add(color.set("COLOR OF SPACE USED"));
-	parameters.add(blank11.set(""));
+
 	parameters.add(color0.set("color Area 0", 100, ofColor(0, 0), 255));
 	parameters.add(color1.set("color Area 1", 100, ofColor(0, 0), 255));
 	parameters.add(color2.set("color Area 2", 100, ofColor(0, 0), 255));
 	parameters.add(color3.set("color Area 3", 100, ofColor(0, 0), 255));
 	parameters.add(color4.set("color Area 4", 100, ofColor(0, 0), 255));
+
+	parameters.add(blank10.set(""));
+	parameters.add(isoAr.set("ISOLATE AREAS"));
+	parameters.add(blank11.set(""));
+	parameters.add(isolateArea0.set("isolate 0", true));
+	parameters.add(isolateArea1.set("isolate 1", true));
+	parameters.add(isolateArea2.set("isolate 2", true));
+	parameters.add(isolateArea3.set("isolate 3", true));
+	parameters.add(isolateArea4.set("isolate 4", true));
 
 	gui.setup(parameters);
 	gui.setBackgroundColor(0);
@@ -60,5 +67,5 @@ void GuiApp::draw()
 	ofBackground(0);
 	ofSetVerticalSync(false);
 	gui.draw();
-
 }
+
