@@ -3,8 +3,10 @@
 #include "ofMain.h"
 #include "GuiApp.h"
 
-#include "Cell.h"
+
 #include "AgentSculpture.h"
+#include "AgentSequence.h"
+#include "Cell.h"
 
 #include <algorithm>
 #include <vector>
@@ -37,8 +39,9 @@ class ofApp : public ofBaseApp{
 
 		/*	MY METHODS	*/
 		void resetSys();
+		void clearSys();
 		void initSysSculpture();
-		void autoInitSys();
+		void initSysSequence();
 
 		int numXGrids, numYGrids, numZGrids;
 		float gridLength, gridWidth, gridDepth;
@@ -49,7 +52,13 @@ class ofApp : public ofBaseApp{
 
 		vector<Cell> CELLS;
 		vector<Cell> sysOccupiedCELLS;
+
 		AgentSculpture a0, a1, a2, a3, a4;
+
+		AgentSequence b0, b1, b2, b3, b4;
+
 		string MSG="";
 		float totalDeficit = 0.f;
 };
+
+

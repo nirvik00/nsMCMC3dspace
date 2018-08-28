@@ -19,13 +19,8 @@ public:
 	void setIndices(int, int, int, int);
 	
 	void drawEdges();
-
 	void draw();
-	void draw(bool);
-	void draw(int, bool);
-	
-	void draw(ofColor, bool);
-	void draw(ofColor, int, bool);
+	void draw(ofColor, bool, int, bool);
 
 	float cellArea();
 

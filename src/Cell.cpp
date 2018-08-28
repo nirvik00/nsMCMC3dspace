@@ -29,7 +29,7 @@ void Cell::setIndices(int cellId, int i, int j, int k) {
 }
 
 void Cell::drawEdges() {
-	ofSetColor(100,100,100); glLineWidth(1);
+	ofSetColor(150); glLineWidth(1);
 	ofDrawLine(pts[0], pts[1]);
 	ofDrawLine(pts[1], pts[2]);
 	ofDrawLine(pts[2], pts[3]);
@@ -45,50 +45,26 @@ void Cell::drawEdges() {
 }
 
 void Cell::draw() {
-	ofSetColor(255, 0, 0, 50);
-	ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
 	drawEdges();
 }
-
-void Cell::draw(bool w) {
-	if (w == false) {
-		ofSetColor(255, 0, 0, 50);
+void Cell::draw(ofColor co, bool isolate, int lvl, bool wireframe) {
+	if (isolate == false && wireframe == false) {
+		ofSetColor(co); ofFill();
 		ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
 	}
-	drawEdges();
-}
-
-void Cell::draw(int t, bool w) {
-	if (t == LEVEL) { 
-		if (w == false) {
-			ofSetColor(255, 0, 0, 50);
-			ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
-		}
-		if(w==true) { drawEdges(); }
+	else if (isolate == false && wireframe == true) {
+		drawEdges();
 	}
-}
-
-void Cell::draw(ofColor co, bool w) {
-	if (w == false) {
-		ofSetColor(co);
-		ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
-	}
-	if(w==true){ drawEdges(); }	
-}
-
-void Cell::draw(ofColor co, int t, bool w) {
-	if (t == LEVEL) {
-		if (w == false) {
-			ofSetColor(co);
+	else if (isolate == true && wireframe == false) {
+		if (lvl == LEVEL) {
+			ofSetColor(co); ofFill();
 			ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
-		}
-		if(w==true) { drawEdges(); }		
+			drawEdges();
+		}		
 	}
-	else {
-		if (w == false) {
-			ofSetColor(co);
-			ofDrawBox(X + gridL / 2, Y + gridW / 2, Z + gridD / 2, gridL, gridW, gridD);
-		}
-		if (w == true) { drawEdges(); }
+	else if(isolate ==true && wireframe==true) {
+		if (lvl == LEVEL) {
+			drawEdges();
+		}		
 	}
 }

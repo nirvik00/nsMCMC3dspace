@@ -14,7 +14,7 @@ void GuiApp::setup()
 	parameters.add(numZGrids.set("(slider)numZGrids", 5, 1, 20));
 	
 	parameters.add(blank2.set(""));
-	parameters.add(wireframe.set("(T/F) WireFrame", true));
+	parameters.add(wireframe.set("(T/F) WireFrame", false));
 	parameters.add(blank3.set(""));
 	
 	parameters.add(blank4.set(""));
