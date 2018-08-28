@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 
-void ofApp::initSys() {
+void ofApp::initSysSculpture() {
 	MSG = "";
 	sysOccupiedCELLS.clear(); 
 	float totalArea = (numXGrids*numYGrids*numZGrids*gridLength*gridDepth);
@@ -23,8 +23,6 @@ void ofApp::initSys() {
 	MSG += "\nDeficit Area   #0= " + to_string(a0Deficit);
 	MSG += "\nCells occupied #0= " + to_string(a0.cellTrail.size());
 	
-	
-
 	a1.clearTrail();
 	float a1Area = totalArea*(gui->agentArea1) / 100;
 	a1.setReqArea(a1Area);
@@ -220,7 +218,7 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key){
 	if (key == 'e' || key == 'E') { resetSys(); }
-	if (key == 'a' || key == 'A') { initSys(); }
+	if (key == 'a' || key == 'A') { initSysSculpture(); }
 }
 
 void ofApp::keyReleased(int key){

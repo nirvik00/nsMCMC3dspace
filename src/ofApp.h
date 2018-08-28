@@ -37,7 +37,7 @@ class ofApp : public ofBaseApp{
 
 		/*	MY METHODS	*/
 		void resetSys();
-		void initSys();
+		void initSysSculpture();
 		void autoInitSys();
 
 		int numXGrids, numYGrids, numZGrids;
