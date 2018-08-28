@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
-class Agent
+class AgentSculpture
 {
 public:
 	float reqArea;
@@ -16,9 +16,11 @@ public:
 	vector<Cell> CELLS;
 	vector <Cell> sysOccupiedCells;
 	
-	Agent() {};
+	AgentSculpture() {};
 
 	void setReqArea(float ar) { reqArea = ar; }
+	void setSysOccCells(vector <Cell>);
+	vector<Cell> getSysOccCells() { return sysOccupiedCells; }
 	void setColor(ofColor co) { COL = co; }
 	float gotArea();
 	

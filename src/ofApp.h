@@ -4,7 +4,7 @@
 #include "GuiApp.h"
 
 #include "Cell.h"
-#include "Agent.h"
+#include "AgentSculpture.h"
 
 #include <algorithm>
 #include <vector>
@@ -38,6 +38,7 @@ class ofApp : public ofBaseApp{
 		/*	MY METHODS	*/
 		void resetSys();
 		void initSys();
+		void autoInitSys();
 
 		int numXGrids, numYGrids, numZGrids;
 		float gridLength, gridWidth, gridDepth;
@@ -47,6 +48,8 @@ class ofApp : public ofBaseApp{
 		ofEasyCam cam;
 
 		vector<Cell> CELLS;
-		Agent a0, a1, a2, a3, a4;
+		vector<Cell> sysOccupiedCELLS;
+		AgentSculpture a0, a1, a2, a3, a4;
 		string MSG="";
+		float totalDeficit = 0.f;
 };

@@ -29,13 +29,13 @@ void GuiApp::setup()
 	parameters.add(showGrid.set("(T/F) show grids", true));
 	
 	parameters.add(blank8.set(""));
-	parameters.add(Area.set("AGENT AREA(s)"));
+	parameters.add(Area.set("AGENT AREA(s) in %"));
 	parameters.add(blank9.set(""));
-	parameters.add(agentArea0.set("Area 0", 2500, 2500, 50000));
-	parameters.add(agentArea1.set("Area 1", 2500, 2500, 50000));
-	parameters.add(agentArea2.set("Area 2", 2500, 2500, 50000));
-	parameters.add(agentArea3.set("Area 3", 2500, 2500, 50000));
-	parameters.add(agentArea4.set("Area 4", 2500, 2500, 50000));
+	parameters.add(agentArea0.set("Area 0", 15, 1, 50));
+	parameters.add(agentArea1.set("Area 1", 15, 1, 50));
+	parameters.add(agentArea2.set("Area 2", 15, 1, 50));
+	parameters.add(agentArea3.set("Area 3", 15, 1, 50));
+	parameters.add(agentArea4.set("Area 4", 15, 1, 50));
 
 	parameters.add(blank10.set(""));
 	parameters.add(color.set("COLOR OF SPACE USED"));

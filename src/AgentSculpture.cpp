@@ -1,6 +1,12 @@
-#include "Agent.h"
+#include "AgentSculpture.h"
 
-int Agent::findCellByIndex(int u, int v, int w) {
+void AgentSculpture::setSysOccCells(vector <Cell> t) {
+	for (int i = 0; i < t.size(); i++) {
+		sysOccupiedCells.push_back(t[i]);
+	}
+}
+
+int AgentSculpture::findCellByIndex(int u, int v, int w) {
 	int idx = -1;
 	for (int t = 0; t < CELLS.size(); t++) {
 		int i = CELLS[t].I;
@@ -14,16 +20,19 @@ int Agent::findCellByIndex(int u, int v, int w) {
 	return idx;
 }
 
-int Agent::checkOccupancy(int u) {
+int AgentSculpture::checkOccupancy(int u) {
 	int sum = 0;
 	for (int t = 0; t < cellTrail.size(); t++) {
 		if (CELLS[u].CellId == cellTrail[t].CellId) { sum++; break; }
+	}
+	for (int i = 0; i < sysOccupiedCells.size(); i++) {
+		if (CELLS[u].CellId == sysOccupiedCells[i].CellId) { sum++; break; }
 	}
 	if (sum == 0) return 0;
 	else return 1;
 }
 
-float Agent::gotArea() {
+float AgentSculpture::gotArea() {
 	float sum = 0;
 	for (int i = 0; i < cellTrail.size(); i++) {
 		sum += cellTrail[i].cellArea();
@@ -31,20 +40,22 @@ float Agent::gotArea() {
 	return sum;
 }
 
-void Agent::clearTrail() {
+void AgentSculpture::clearTrail() {
 	cellTrail.clear();
+	sysOccupiedCells.clear();
 }
 
-void Agent::initMove() {
+void AgentSculpture::initMove() {
 	cellTrail.clear();
 	random_shuffle(CELLS.begin(), CELLS.end());
 	Cell a = CELLS[0];
 	cellTrail.push_back(a);
-
 	if (gotArea() < reqArea) { genMoves(0); }
+	
+	setSysOccCells(cellTrail);
 }
 
-void Agent::genMoves(int rec)
+void AgentSculpture::genMoves(int rec)
 {
 	vector<int> opts = { 0, 1, 2, 3, 4, 5 };
 	random_shuffle(opts.begin(), opts.end());
@@ -56,14 +67,12 @@ void Agent::genMoves(int rec)
 	else if (x == 3) { moveDown(); }
 	else if (x == 4) { moveIn(); }
 	else { moveOut(); }
-
 	
 	if (gotArea() < reqArea && rec<100) { rec++; genMoves(rec); }
-	//else { MSG += "\n area not met"; }
 	
 }
 
-void Agent::moveLeft() {
+void AgentSculpture::moveLeft() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(--I, J, K);
@@ -72,7 +81,7 @@ void Agent::moveLeft() {
 	}
 }
 
-void Agent::moveRight() {
+void AgentSculpture::moveRight() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(++I, J, K);
@@ -81,7 +90,7 @@ void Agent::moveRight() {
 	}
 }
 
-void Agent::moveUp() {
+void AgentSculpture::moveUp() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(I, ++J, K);
@@ -92,7 +101,7 @@ void Agent::moveUp() {
 	}
 }
 
-void Agent::moveDown() {
+void AgentSculpture::moveDown() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(I, --J, K);
@@ -103,7 +112,7 @@ void Agent::moveDown() {
 	}
 }
 
-void Agent::moveIn() {
+void AgentSculpture::moveIn() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(I, J, --K);
@@ -114,7 +123,7 @@ void Agent::moveIn() {
 	}
 }
 
-void Agent::moveOut() {
+void AgentSculpture::moveOut() {
 	Cell cell = cellTrail[cellTrail.size() - 1];
 	int I = cell.I;	int J = cell.J; int K = cell.K;
 	int t = findCellByIndex(I, J, ++K);
