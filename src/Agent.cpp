@@ -57,9 +57,10 @@ void Agent::initMove() {
 
 void Agent::genMoves(int rec)
 {
+	/*	ONE WAY TO FIND NEXT MOVE - UNIFORM DISTRIBUTION	*/
+	/*
 	vector<int> opts = { 0, 1, 2, 3, 4, 5 };
 	random_shuffle(opts.begin(), opts.end());
-
 	int x = opts[0];
 	if (x == 0) { moveLeft(); }
 	else if (x == 1) { moveRight(); }
@@ -67,7 +68,25 @@ void Agent::genMoves(int rec)
 	else if (x == 3) { moveDown(); }
 	else if (x == 4) { moveIn(); }
 	else { moveOut(); }
-	
+	*/
+
+	/*	WEIGHTED MOVES - XZ PREFERRED	*/
+	int left = (int)ofRandom(0, 100);
+	int right = (int)ofRandom(0, 100);
+	int in = (int)ofRandom(0, 100);
+	int out = (int)ofRandom(0, 100);
+	int up = (int)ofRandom(0, 50);
+	int down = (int)ofRandom(0, 50);
+	vector<int> vec = { left, right, in, out, up, down };
+	sort(vec.begin(), vec.end());
+	int dir = vec[vec.size()-1];
+	if (dir == left) { moveLeft(); }
+	else if (dir == right) { moveRight(); }
+	else if (dir == in) { moveIn(); }
+	else if (dir == out) { moveOut(); }
+	else if (dir == up) { moveUp(); }
+	else { moveDown(); }
+
 	if (gotArea() < reqArea && rec<100) { rec++; genMoves(rec); }
 	
 }
